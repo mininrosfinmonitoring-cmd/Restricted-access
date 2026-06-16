@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-приемная — Росфинмониторинг</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
+        
+        /* Хедер */
+        .navbar-custom { background-color: #0a1f33; height: 85px; display: flex; align-items: center; padding: 0 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; }
+        .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .emblem-img { height: 60px; width: auto; }
+        .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
+        .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
+
+        /* Контейнер формы */
+        .form-container { max-width: 800px; margin: 40px auto; background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 40px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        
+        .section-title { font-size: 20px; color: #0a1f33; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #005695; padding-bottom: 8px; }
+        .notice-box { background-color: #fff9e6; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 30px; font-size: 14px; color: #665014; line-height: 1.5; border-radius: 0 4px 4px 0; }
+        
+        /* Стили формы */
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; font-weight: bold; color: #0a1f33; margin-bottom: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.3px; }
+        
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid #ced4da; border-radius: 4px; font-size: 15px; transition: border-color 0.15s ease-in-out; box-sizing: border-box; background-color: #f8fafc; }
+        .form-control:focus { border-color: #005695; outline: 0; background-color: #fff; box-shadow: 0 0 0 3px rgba(0,86,149,0.1); }
+        
+        textarea.form-control { min-height: 150px; resize: vertical; }
+        
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 15px; }
+        .checkbox-group input { margin-top: 3px; }
+        .checkbox-group label { font-size: 13px; color: #555; font-weight: normal; text-transform: none; }
+
+        /* Кнопки */
+        .btn-submit { background: #005695; color: white; padding: 14px 30px; border: none; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.2s; width: 100%; margin-top: 10px; }
+        .btn-submit:hover { background: #0a1f33; }
+        .btn-submit:disabled { background: #cccccc; cursor: not-allowed; }
+        
+        .btn-back { display: inline-block; background: #556677; color: white; padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 20px; transition: background 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-back:hover { background: #334455; }
+
+        /* Всплывашка об успешной отправке */
+        .modal-success { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,31,51,0.6); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 40px; border-radius: 4px; border-top: 6px solid #28a745; text-align: center; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .modal-content h3 { color: #0a1f33; margin-top: 0; }
+        .modal-content p { color: #555; font-size: 14px; line-height: 1.5; }
+        .btn-close { background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; font-size: 12px; }
+
+        /* Подвал */
+        .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
+        .footer-container { max-width: 800px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; }
+        .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
+        .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 450px; }
+        .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Официальный модуль отправки обращений</p>
+            </div>
+        </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">УЗЕЛ СВЯЗИ: ЗАЩИЩЕН</div>
+    </nav>
+
+    <div class="form-container">
+        <div class="section-title">Прием обращений граждан и организаций</div>
+        
+        <div class="notice-box">
+            <strong>Внимание!</strong> Обращения, направленные через настоящий электронный портал, регистрируются в установленном порядке в соответствии с Федеральным законом № 59-ФЗ «О порядке рассмотрения обращений граждан Российской Федерации».
+        </div>
+
+        <form action="https://formspree.io/f/mlgkaknj" method="POST" id="appealForm" onsubmit="sendForm(event)" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="fullName">ФИО заявителя / Наименование организации *</label>
+                <input type="text" id="fullName" name="name" class="form-control" placeholder="Иванов Иван Иванович" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Электронная почта для ответа *</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="example@mail.ru" required>
+            </div>
+
+            <div class="form-group">
+    <label for="phone">Номер телефона для связи *</label>
+    <!-- Убрали жесткий pattern, оставили только базовую проверку на цифры -->
+    <input type="tel" id="phone" name="phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
+</div>
+
+            <div class="form-group">
+                <label for="subject">Тема обращения *</label>
+                <select id="subject" name="subject" class="form-control" required>
+                    <option value="" disabled selected>Выберите тему...</option>
+                    <option value="Сообщение о сомнительных операциях">Сообщение о сомнительных операциях / антифрод</option>
+                    <option value="Вопросы исполнения 115-ФЗ">Вопросы исполнения требований Федерального закона № 115-ФЗ</option>
+                    <option value="Техподдержка ЛК">Запрос технической поддержки Личного Кабинета</option>
+                    <option value="Жалобы и предложения">Жалобы и предложения</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Текст обращения *</label>
+                <textarea id="message" name="message" class="form-control" placeholder="Подробно изложите суть вашего вопроса или заявления..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="file">Прикрепить подтверждающие документы (PDF, PNG, JPG)</label>
+                <input type="file" id="file" name="attachment" class="form-control" style="padding: 8px;">
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="agreement" required>
+                <label for="agreement">Я подтверждаю свое согласие на обработку персональных данных Федеральной службой по финансовому мониторингу в рамках рассмотрения настоящего обращения.</label>
+            </div>
+
+            <button type="submit" class="btn-submit">Отправить официальное обращение</button>
+        </form>
+
+        <a href="index.html" class="btn-back">← Назад на главную</a>
+    </div>
+
+    <div id="successModal" class="modal-success">
+        <div class="modal-content">
+            <div style="font-size: 40px; margin-bottom: 15px;">✉️</div>
+            <h3>Обращение успешно отправлено!</h3>
+            <p>Вашему заявлению присвоен временный входящий номер:</p>
+            <p style="font-family: monospace; font-size: 16px; font-weight: bold; color: #005695; background: #eef2f5; padding: 8px; margin: 15px 0; border-radius: 4px;">
+                РФМ-ОБ-<span id="ticketNumber">000000</span>
+            </p>
+            <p>Официальный ответ будет направлен на указанный вами Email в течение установленного законом срока.</p>
+            <button class="btn-close" onclick="closeModal()">Закрыть окно</button>
+        </div>
+    </div>
+
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <img src="emblem.png" class="footer-emblem" alt="Герб Росфинмониторинга">
+            <div class="footer-disclaimer">
+                «Поступающие обращения обрабатываются в строгом соответствии с регламентами информационной безопасности Федеральной службы».
+            </div>
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function sendForm(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const button = form.querySelector('.btn-submit');
+            
+            button.innerText = "Отправка документов...";
+            button.disabled = true;
+
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    const randomTicket = Math.floor(100000 + Math.random() * 900000);
+                    document.getElementById('ticketNumber').innerText = randomTicket;
+                    document.getElementById('successModal').style.display = 'flex';
+                } else {
+                    alert("Ошибка сервера при отправке. Убедитесь, что размер файла не превышает лимиты.");
+                }
+            }).catch(error => {
+                alert("Ошибка сети! Проверьте подключение к интернету.");
+            }).finally(() => {
+                button.innerText = "Отправить официальное обращение";
+                button.disabled = false;
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('appealForm').reset();
+        }
+    </script>
+document.getElementById('phone').addEventListener('blur', function() {
+    // 1. Очищаем строку от пробелов, скобок, дефисов и тире
+    let cleaned = this.value.replace(/[^0-9+]/g, '');
+    
+    // 2. Если пользователь начал с 8, меняем на +7 для солидности (по желанию)
+    if (cleaned.startsWith('8')) {
+        cleaned = '+7' + cleaned.substring(1);
+    }
+    
+    // 3. Если ввели вообще без кода (например, 9261234567), дописываем +7
+    if (cleaned.length === 10 && !cleaned.startsWith('+')) {
+        cleaned = '+7' + cleaned;
+    }
+
+    // Возвращаем очищенный номер обратно в поле
+    this.value = cleaned;
+});
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Досье сотрудника — Росфинмониторинг</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
+        
+        /* Хедер досье */
+        .navbar-custom { background-color: #0a1f33; height: 85px; display: flex; align-items: center; padding: 0 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; }
+        .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .emblem-img { height: 60px; width: auto; }
+        .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
+        .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
+
+        /* Контейнер */
+        .profile-container { max-width: 1000px; margin: 40px auto; background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 40px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        
+        /* Главный блок: Фото + Имя */
+        .profile-header { display: grid; grid-template-columns: 280px 1fr; gap: 40px; border-bottom: 2px solid #edf1f4; padding-bottom: 35px; margin-bottom: 30px; }
+        
+        /* Контейнер для главного фото */
+        .photo-box { width: 280px; height: 350px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .photo-box img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        
+        .info-box { display: flex; flex-direction: column; justify-content: center; }
+        .status-badge { background: #e2f6ea; color: #28a745; padding: 6px 14px; font-size: 12px; font-weight: bold; border-radius: 20px; width: fit-content; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #c3e6cb; }
+        .profile-name { font-size: 32px; color: #0a1f33; font-weight: bold; margin: 0 0 10px 0; }
+        .profile-rank { font-size: 16px; color: #005695; font-weight: 600; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        /* Личные данные */
+        .meta-grid { display: grid; grid-template-columns: 180px 1fr; gap: 14px; font-size: 14px; border-top: 1px solid #f0f4f7; padding-top: 20px; }
+        .meta-label { font-weight: bold; color: #708090; }
+        .meta-value { color: #222; }
+
+        /* Разделы */
+        .section-title { font-size: 18px; color: #005695; font-weight: bold; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid #005695; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .bio-text { font-size: 15px; line-height: 1.6; color: #444; text-align: justify; margin: 0 0 15px 0; }
+
+        /* Списки блоков */
+        .features-list { padding-left: 20px; margin: 15px 0; font-size: 15px; line-height: 1.6; color: #444; }
+        .features-list li { margin-bottom: 12px; }
+        .features-list strong { color: #005695; }
+
+        /* Двухколоночный блок: Интервью + Пресс-фото */
+        .media-block { display: grid; grid-template-columns: 1fr 320px; gap: 30px; margin-top: 15px; align-items: start; }
+        
+        .quote-block { background: #f4f7fa; border-left: 5px solid #c5a059; padding: 25px; border-radius: 0 4px 4px 0; font-style: italic; font-size: 15px; line-height: 1.6; color: #4b5768; margin: 0; }
+        .quote-source { font-style: normal; font-weight: bold; color: #005695; margin-top: 15px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .press-photo-box { width: 100%; height: 210px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .press-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Награды */
+        .awards-list { list-style-type: none; padding: 0; margin: 0; font-size: 15px; line-height: 1.8; color: #444; }
+        .awards-list li { padding-left: 25px; position: relative; margin-bottom: 8px; }
+        .awards-list li::before { content: '🏆'; position: absolute; left: 0; top: -1px; font-size: 14px; }
+
+        .btn-back { display: inline-block; background: #0a1f33; color: white; padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 40px; transition: background 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-back:hover { background: #004070; }
+
+        /* Подвал */
+        .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
+        .footer-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; }
+        .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
+        .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 600px; }
+        .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
+    /* ==========================================================================
+   АДАПТИВНАЯ ВЕРСТКА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (СТРАНИЦА СОТРУДНИКА)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Навбар (Шапка с гербом) */
+    .navbar-custom {
+        height: auto !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        padding: 10px 15px !important;
+    }
+    .logo-area {
+        gap: 10px !important;
+    }
+    .emblem-img {
+        height: 45px !important; /* Делаем герб чуть компактнее */
+    }
+    .logo-text h1 {
+        font-size: 13px !important;
+    }
+    .logo-text p {
+        font-size: 8px !important;
+    }
+
+    /* 2. Основной контейнер страницы */
+    .profile-container {
+        margin: 10px !important;
+        padding: 15px !important;
+        width: auto !important;
+    }
+
+    /* 3. Главный блок (Фото + Имя) — переводим из Grid в Flex одну колонку */
+    .profile-header {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px !important;
+        padding-bottom: 20px !important;
+        margin-bottom: 20px !important;
+        text-align: center !important;
+    }
+
+    /* Контейнер для фото */
+    .photo-box {
+        width: 200px !important; /* Ужимаем фотку, чтобы она не была на весь экран */
+        height: 250px !important;
+    }
+
+    /* Блок с ФИО и статусом */
+    .info-box {
+        align-items: center !important;
+    }
+    .profile-name {
+        font-size: 24px !important;
+    }
+    .profile-rank {
+        font-size: 14px !important;
+    }
+    .status-badge {
+        margin: 0 auto 15px auto !important; /* Центрируем зеленую плашку */
+    }
+
+    /* 4. Личные данные (ID, Подразделение, Специализация) */
+    .meta-grid {
+        display: flex !important;
+        flex-direction: column !important; /* Выстраиваем пункты друг под друга */
+        gap: 12px !important;
+        padding-top: 15px !important;
+    }
+    .meta-label {
+        margin-bottom: 2px !important;
+        color: #708090 !important;
+    }
+    .meta-value {
+        margin-bottom: 10px !important;
+        padding-left: 5px !important;
+    }
+
+    /* 5. Двухколоночный блок (Интервью + Пресс-фото) */
+    .media-block {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+    .press-photo-box {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* 6. Подвал (Footer) */
+    .footer-profile .footer-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        text-align: center !important;
+    }
+    .footer-disclaimer, .footer-copyright {
+        text-align: center !important;
+        white-space: normal !important; /* Разрешаем тексту переноситься */
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- НАВБАР -->
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ДОСТУП: СЛУЖЕБНЫЙ</div>
+    </nav>
+
+    <!-- КАРТОЧКА ПРОФИЛЯ -->
+    <div class="profile-container">
+        
+        <div class="profile-header">
+            <div class="photo-box">
+                <img src="chrlz.png" alt="Минин М. В. — Рабочая обстановка">
+            </div>
+            
+            <div class="info-box">
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h2 class="profile-name">Минин Максим Викторович</h2>
+                <p class="profile-rank">Инспектор ПОД/ФТ / Финансовый специалист</p>
+                
+                <div class="meta-grid">
+                    <div class="meta-label">ID Удостоверения:</div>
+                    <div class="meta-value" style="font-weight: bold; color: #d9534f;">ФС-125066</div>
+                    
+                    <div class="meta-label">Подразделение:</div>
+                    <div class="meta-value">Управление безопасности и защиты информации Росфинмониторинга</div>
+                    
+                    <div class="meta-label">Специализация:</div>
+                    <div class="meta-value">Противодействие отмыванию доходов, антифрод и финансовая разведка</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- НА СТРАЖЕ БЕЗОПАСНОСТИ -->
+        <div class="section-title">На страже финансовой безопасности</div>
+        <p class="bio-text">
+            Профессиональный путь Максима Минина неразрывно связан с защитой государственных интересов и борьбой с финансовыми преступлениями. Его карьера — это уникальное сочетание системного аналитического управления и оперативной работы «на передовой». Благодаря глубоким экспертным знаниям он выступает надежным щитом на пути нелегальных финансовых потоков.
+        </p>
+
+        <!-- ОБРАЗОВАНИЕ -->
+        <div class="section-title">Образование и становление</div>
+        <p class="bio-text">
+            Максим получил профильное высшее образование в <strong>Международном сетевом институте в сфере ПОД/ФТ</strong> (противодействие отмыванию доходов и финансированию терроризма). Обучение в таком узкоспециализированном вузе заложило мощный фундамент его экспертных знаний в области финансовой разведки, анализа транзакций и современных методов оперативного выявления теневых экономических схем.
+        </p>
+
+        <!-- ЛИДЕРСТВО -->
+        <div class="section-title">Лидерство в молодежной политике</div>
+        <p class="bio-text">
+            Значимым этапом его карьеры стала работа в Росфинмониторинге, где Максим возглавлял <strong>Молодежный совет ведомства</strong>. На этом ответственном посту он лично отвечал за формирование и подготовку передового кадрового потенциала службы. Под его непосредственным руководством успешно реализовывались масштабные проекты по вовлечению молодых специалистов в мониторинг комплексных финансовых операций и совместную разработку новых антифрод-стратегий.
+        </p>
+
+        <!-- ПРЯМАЯ БОРЬБА -->
+        <div class="section-title">Прямая борьба с мошенничеством</div>
+        <p class="bio-text">
+            В отличие от большинства стандартных кабинетных специалистов, Максим ведет непримиримую борьбу с преступностью «лицом к лицу». Его ежедневная деятельность выходит далеко за рамки классических должностных обязанностей:
+        </p>
+        <ul class="features-list">
+            <li><strong>Противодействие схемам в реальном времени:</strong> Он непосредственно выявляет, отслеживает и блокирует попытки хищения крупных денежных средств, работая на опережение преступных групп.</li>
+            <li><strong>Прямая работа с жертвами:</strong> Максим лично взаимодействует с людьми, ставшими мишенью подготовленных мошенников. Он не просто консультирует, а ведет плотную психологическую и юридическую поддержку пострадавших, помогая им сохранить свои активы в критических ситуациях.</li>
+            <li><strong>Минимизация рисков:</strong> Благодаря его экстренному вмешательству десятки граждан смогли избежать фатальных финансовых потерь. В моменты жесткого психологического давления на жертв со стороны злоумышленников, Максим выступает в роли «финансового щита», пресекающего переводы на счета дропов.</li>
+        </ul>
+
+        <!-- ИТОГ / ЦИТАТА -->
+        <div class="section-title">Профессиональный итог и медиа</div>
+        <div class="media-block">
+            <div class="quote-block">
+                «Работа финансового инспектора — это не только сухой анализ цифр и графиков, но и реальное спасение человеческих судеб. Сочетая опыт координации молодых аналитиков в одном из самых закрытых ведомств страны и ежедневную практику спасения людей от высокотехнологичных атак, мы обеспечиваем базовую экономическую безопасность граждан.»
+                <div class="quote-source">Из официального комментария пресс-службе МУМЦФМ, 2025 г.</div>
+            </div>
+            <div class="press-photo-box">
+                <img src="chrlz_prewu.png" alt="Минин М. В. — Комментарий для прессы">
+            </div>
+        </div>
+
+        <!-- НАГРАДЫ -->
+        <div class="section-title">Государственные и ведомственные награды</div>
+        <ul class="awards-list">
+            <li>Благодарность Руководителя Росфинмониторинга за успешную разработку и внедрение новых антифрод-технологий защиты данных.</li>
+            <li>Медаль Федеральной службы по финансовому мониторингу «За заслуги» II степени.</li>
+            <li>Нагрудный знак отличия «За вклад в обеспечение финансовой безопасности».</li>
+        </ul>
+
+        <a href="index.html" class="btn-back">← На главную страницу</a>
+
+    </div>
+
+    <!-- УНИВЕРСАЛЬНЫЙ ПОДВАЛ С ДИСКЛЕЙМЕРОМ И ГЕРБОМ -->
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <img src="emblem.png" class="footer-emblem" alt="Герб Росфинмониторинга">
+            <div class="footer-disclaimer">
+                «Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга».
+            </div>
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+ <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- другие твои теги, стили и т.д. -->
+ </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная — Росфинмониторинг</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f4f7; 
+            color: #333; 
+        }
+        
+        /* ХЕДЕР САЙТА */
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: 85px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 30px; 
+            color: #fff; 
+            border-bottom: 4px solid #c5a059; 
+            justify-content: space-between; 
+        }
+        .logo-area { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .emblem-img { 
+            height: 60px; 
+            width: auto; 
+        }
+        .logo-text h1 { 
+            margin: 0; 
+            font-size: 18px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+        }
+        .logo-text p { 
+            margin: 0; 
+            font-size: 10px; 
+            color: #a0b2c6; 
+            text-transform: uppercase; 
+        }
+
+        /* БАННЕР С КАРТИНКОЙ */
+        .hero-banner {
+            background-color: #0a1f33; 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-banner img {
+            width: 100%;
+            max-width: 1920px; 
+            height: auto;
+            display: block;
+        }
+
+        /* ГЛАВНЫЙ КОНТЕЙНЕР */
+        .main-content-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* ВЕРХНЯЯ СЕКЦИЯ: НОВОСТИ + ПРОВЕРКА */
+        .top-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        /* Блок новостей */
+        .news-box {
+            background: white;
+            border: 1px solid #dce3e8;
+            border-radius: 4px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .section-title {
+            font-size: 20px;
+            color: #005695;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-left: 4px solid #005695;
+            padding-left: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .news-card-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .news-card-item {
+            display: grid;
+            grid-template-columns: 140px 1fr; 
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #edf1f4;
+            align-items: start;
+            text-decoration: none; 
+            color: inherit;
+            transition: background-color 0.2s;
+        }
+        .news-card-item:hover {
+            background-color: #f8f9fa; 
+        }
+        .news-card-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .news-img-box {
+            width: 140px;
+            height: 95px;
+            background-color: #e5eef5;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #dce3e8;
+        }
+        .news-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .news-content-box h4 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            color: #222;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+        .news-card-item:hover .news-content-box h4 {
+            color: #005695; 
+        }
+        .news-content-box span {
+            font-size: 11px;
+            color: #8fa2b5;
+            display: block;
+        }
+
+        /* Форма проверки сотрудника */
+        .verification-box {
+            background: white;
+            border: 1px solid #dce3e8;
+            border-radius: 4px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .verification-box p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .input-style {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .btn-verify {
+            width: 100%;
+            background-color: #005695;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-transform: uppercase;
+        }
+        .btn-verify:hover {
+            background-color: #0a1f33;
+        }
+
+        /* ИНТЕРНЕТ-ПРИЕМНАЯ */
+        .internet-priemnaya-banner {
+            width: 100%;
+            margin-bottom: 40px;
+        }
+        .internet-priemnaya-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #dce3e8;
+        }
+
+        /* СЕТКА ИЗ КАРТОЧЕК */
+        .cards-grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        .service-card {
+            background: white;
+            border: 1px solid #dce3e8;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.01);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+        }
+        .service-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .card-title {
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 13px;
+            color: #005695;
+            letter-spacing: 0.5px;
+            background: #fdfdfd;
+            border-top: 1px solid #f0f4f7;
+        }
+
+        /* МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО */
+        .cooperation-box {
+            background: white;
+            border: 1px solid #dce3e8;
+            border-radius: 4px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .logos-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin: 25px 0;
+        }
+        .coop-logo {
+            height: 200px; 
+            width: auto;
+            object-fit: contain;
+        }
+        .coop-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #666;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* БЛОК КАРТЫ И КОНТАКТОВ */
+        .contacts-map-box {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+            background: white;
+            border: 1px solid #dce3e8;
+            border-radius: 4px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .contacts-info {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+        }
+        .contacts-info h3 {
+            margin: 0 0 15px 0;
+            color: #0a1f33;
+            font-size: 18px;
+        }
+        .contacts-info p {
+            margin: 0 0 10px 0;
+        }
+        .map-wrapper {
+            width: 100%;
+            height: 300px;
+            background: #edf1f4;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            overflow: hidden;
+        }
+
+        /* СТРОГИЙ ПОДВАЛ */
+        .footer-profile { 
+            background-color: #0a1f33; 
+            color: #fff; 
+            padding: 30px 0; 
+            font-size: 12px; 
+            border-top: 4px solid #c5a059; 
+        }
+        .footer-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            box-sizing: border-box; 
+        }
+        .footer-emblem { 
+            height: 50px; 
+            width: auto; 
+        }
+        .footer-copyright { 
+            color: #8fa2b5; 
+            font-size: 11px; 
+            font-weight: bold; 
+            text-align: right; 
+        }
+        /* ==========================================================================
+   АДАПТИВНАЯ ВЕРСТКА ТОЛЬКО ДЛЯ ГЛАВНОЙ СТРАНИЦЫ (index.html)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Элементы ГЛАВНОЙ страницы выстраиваем друг под друга */
+    .main-container, 
+    .content-wrapper, 
+    #dynamic-news-wrapper { 
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    .news-section, 
+    .check-section,
+    .form-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 20px 0 !important;
+    }
+
+    /* 2. Верхняя темная плашка с гербом ведомства */
+    .header-top, .top-bar {
+        display: flex !important;
+        flex-direction: column !important; 
+        align-items: center !important;
+        text-align: center !important;
+        padding: 10px !important;
+    }
+
+    .official-portal-text, .header-top .right-side {
+        margin-top: 5px !important;
+        font-size: 11px !important;
+    }
+
+    /* 3. СИНЙ ПРАЗДНИЧНЫЙ БАННЕР 25 ЛЕТ */
+    .main-banner, .top-banner, .header {
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+        background-color: #001a34 !important;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16 / 7 !important;
+        padding: 0 !important;
+        margin-bottom: 15px !important;
+    }
+
+    .header h1, .brand-title {
+        font-size: 18px !important;
+        text-align: center !important;
+    }
+
+    /* 4. КАРТОЧКИ НОВОСТЕЙ */
+    .news-card-item {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    .news-img-box, .news-img-box img {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo-area">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Федеральная служба по финансовому мониторингу</p>
+            </div>
+        </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ОФИЦИАЛЬНЫЙ ПОРТАЛ</div>
+    </nav>
+
+    <div class="hero-banner">
+        <img src="25_years_logo.png" alt="25 лет Росфинмониторинг">
+    </div>
+
+    <div class="main-content-container">
+
+        <div class="top-grid">
+            
+            <div class="news-box">
+                <div class="section-title">Новости ведомства</div>
+                <!-- ID ИЗМЕНЕН НА dynamic-news-wrapper ДЛЯ СВЯЗИ С ВНЕШНИМ СКРИПТОМ -->
+                <div id="dynamic-news-wrapper" class="news-card-wrapper">
+                    <!-- Сюда скрипт news_data.js сам вставит карточки -->
+                </div>
+            </div>
+
+            <div class="verification-box">
+                <div class="section-title">Проверка сотрудника</div>
+                <p>Введите номер служебного удостоверения для мгновенной верификации личности.</p>
+                <input type="text" id="id-input" class="input-style" placeholder="Например: ФС-123456">
+                <button onclick="checkEmployee()" class="btn-verify">Проверить</button>
+            </div>
+
+        </div>
+
+        <div class="internet-priemnaya-banner">
+            <a href="appeal.html">
+                <img src="internet_priemnaya.png" alt="Интернет-приемная">
+            </a>
+        </div>
+
+        <div class="cards-grid-container">
+            <div class="service-card">
+                <img src="card1.png" alt="СМИ о нас">
+                <div class="card-title">СМИ О НАС</div>
+            </div>
+            <div class="service-card">
+                <img src="card2.png" alt="Международный форум">
+                <div class="card-title">МЕЖДУНАРОДНЫЙ ФОРУМ</div>
+            </div>
+            <div class="service-card">
+                <img src="card3.png" alt="Олимпиада">
+                <div class="card-title">ОЛИМПИАДА</div>
+            </div>
+            <div class="service-card">
+                <img src="card4.png" alt="Журнал">
+                <div class="card-title">ЖУРНАЛ «ФИНАНСОВАЯ БЕЗОПАСНОСТЬ»</div>
+            </div>
+            <div class="service-card">
+                <img src="card5.png" alt="Госуслуги">
+                <div class="card-title">ФЕДЕРАЛЬНЫЙ ПРОЕКТ «ГОСУДАРСТВО ДЛЯ ЛЮДЕЙ»</div>
+            </div>
+            <div class="service-card">
+                <img src="card6.png" alt="Помним, гордимся">
+                <div class="card-title">ПОМНИМ, ГОРДИМСЯ</div>
+            </div>
+        </div>
+
+        <div class="cooperation-box">
+            <div class="section-title" style="border: none; padding: 0; text-align: center;">Международное сотрудничество</div>
+            <div class="logos-row">
+                <img src="fatf_logo.png" class="coop-logo" alt="FATF">
+                <img src="egmont_logo.png" class="coop-logo" alt="Egmont Group">
+                <img src="eag_logo.png" class="coop-logo" alt="EAG">
+            </div>
+            <p class="coop-text">
+                Росфинмониторинг осуществляет взаимодействие и ведет информационный обмен с компетентными органами ряда государств и международных организаций. Первоочередное внимание при этом уделяется обеспечению участия Российской Федерации в мероприятиях, направленных на разработку и совершенствование международных стандартов противодействия отмыванию денежных средств и финансированию терроризма...
+            </p>
+        </div>
+
+        <div class="contacts-map-box">
+            <div class="contacts-info">
+                <div class="section-title" style="margin-bottom: 15px;">Контакты ведомства</div>
+                <h3>Центральный аппарат Росфинмониторинга</h3>
+                <p><strong>Адрес:</strong> 107450, г. Москва, ул. Мясницкая, д. 39, стр. 1</p>
+                <p><strong>Телефон для справок:</strong> +7 (495) 627-33-97</p>
+                <p><strong>Часы работы:</strong> Пн-Чт: 9:00 – 18:00, Пт: 9:00 – 16:45</p>
+                <p style="margin-top: 15px; font-size: 13px; color: #666; font-style: italic;">
+                    Личный прием граждан и представителей организаций осуществляется по предварительной записи в соответствии с регламентом ведомства.
+                </p>
+            </div>
+            <div id="rosfin-map" class="map-wrapper"></div>
+        </div>
+
+    </div>
+
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="emblem.png" alt="Герб" class="footer-emblem">
+                <div style="text-align: left;">
+                    <div style="font-size: 14px; font-weight: bold; letter-spacing: 0.5px;">РОСФИНМОНИТОРИНГ</div>
+                    <div style="font-size: 9px; color: #8fa2b5; text-transform: uppercase;">Федеральная служба по financial мониторингу</div>
+                </div>
+            </div>
+            <div style="max-width: 600px; text-align: right;">
+                <p style="margin: 0 0 10px 0; font-size: 11px; line-height: 1.4; color: #a0b2c6; font-style: italic;">
+                    Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
+                </p>
+                <div class="footer-copyright">
+                    © 2001-2026 Официальный портал ведомства. Все права защищены.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ПОДКЛЮЧЕНИЕ КАРТ И ВНЕШНЕГО ФАЙЛА НОВОСТЕЙ -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script src="news_data.js"></script>
+    <script>
+        // 1. ИНИЦИАЛИЗАЦИЯ ИНТЕРАКТИВНОЙ КАРТЫ ЯНДЕКСА
+        ymaps.ready(initMap);
+        function initMap() {
+            var map = new ymaps.Map("rosfin-map", {
+                center: [55.768784, 37.641551], // Координаты Мясницкая, 39с1
+                zoom: 16,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+
+            var placemark = new ymaps.Placemark([55.768784, 37.641551], {
+                balloonContentHeader: "Росфинмониторинг",
+                balloonContentBody: "Центральный аппарат ведомства<br>г. Москва, ул. Мясницкая, д. 39, стр. 1",
+                hintContent: "Здание Федеральной службы"
+            }, {
+                preset: 'islands#navyGovernmentIcon'
+            });
+
+            map.geoObjects.add(placemark);
+            map.behaviors.disable('scrollZoom');
+        }
+
+        // 2. ПРОВЕРКА СОТРУДНИКОВ
+        function checkEmployee() {
+            var val = document.getElementById('id-input').value.trim().toUpperCase();
+            
+            if (val === "") {
+                alert('Пожалуйста, введите номер служебного удостоверения.');
+                return;
+            }
+
+            switch(val) {
+                case 'ФС-125066':
+                    window.location.href = 'Minin_M_V.html';
+                    break;
+                case 'ФС-270038': 
+                    window.location.href = 'Leonova.html'; 
+                    break;
+                case 'ФС-127025':
+                    window.location.href = 'Rybov.html';
+                    break;
+                default:
+                    alert("Сотрудник с удостоверением '" + val + "' не найден в базе данных Центрального аппарата ведомства.");
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
+/* news_data.js */
+const current_news = [
+    {
+        image: "news_fiu.png",
+        title: "В МУМЦФМ прошла защита выпускных работ студентов профиля «Финансовая разведка» Финуниверситета",
+        text: `В Международном учебно-методическом центре финансового мониторинга (МУМЦФМ) состоялось выездное заседание Государственной экзаменационной комиссии по защите выпускных квалификационных работ студентов Кафедры экономической безопасности и управления рисками Факультета экономики и бизнеса Финансового университета при Правительстве РФ.
+
+ВКР к защите представили более 10 студентов вуза, обучающихся по направлению подготовки «Экономика» по профилю «Финансовая разведка». В мероприятии также приняли участие представители Росфинмониторинга, МВД России, ФСБ России, академического и экспертного сообщества.
+
+Со вступительным словом к участникам обратился первый заместитель директора Федеральной службы по финансовому мониторингу Олег Крылов. Замглавы ведомства пожелал студентам успехов и новых достижений в будущей профессии:
+
+«Сегодня у вас один из самых важных дней за все время учебы, защита ВКР - это возможность доказать, что вы готовы стать финансовыми разведчиками. Эта профессия достаточно новая, но в то же время очень интересная, важная и востребованная в обществе, в коммерческих кругах. Это направление открывает достаточно большие возможности для дальнейшего профессионального роста. Мы надеемся, что идеи, которые вы сегодня нам представите, можно будет использовать, в том числе в деятельности подразделения финансовой разведки», - сказал Олег Крылов.
+
+В выпускных работах поднимаются вопросы:
+📌 противодействия использованию преступниками новых технологий и криптовалют для отмывания денег и финансирования терроризма;
+📌 обеспечения финансовой безопасности, борьбы с мошенничеством и дропперством;
+📌 развития системы внутреннего контроля в банках и другие темы.`,
+        link: "https://www.fedsfm.ru/releases/9981"
+    },
+    {
+        image: "sbp.png",
+        title: "В Санкт-Петербурге пресечена деятельность группы теневых банкиров с оборотом свыше полумиллиарда рублей",
+        text: `🚨 В Санкт-Петербурге сотрудники полиции совместно с Росфинмониторингом пресекли деятельность организованной группы, которая занималась незаконной банковской деятельностью и выводила денежные средства через сеть подконтрольных фирм.
+
+По имеющимся данным, в период с октября 2023 по декабрь 2025 года злоумышленники предоставляли услуги по обналичиванию и транзиту денежных средств, получая около 12 % с каждой операции.
+
+По предварительным подсчетам, криминальный оборот превысил 500 миллионов рублей.
+
+Задержаны предполагаемый организатор схемы - учредитель коммерческих организаций, - а также соорганизатор, который координировал деятельность группы, и двое сообщников, отвечавших за поиск клиентов и движение наличных денежных средств.
+
+Во время обысков изъяты банковские карты, печати фиктивных организаций, компьютерная техника, мобильные телефоны, электронные носители информации и другие предметы.
+
+Возбуждено и расследуется уголовное дело по признакам преступления, предусмотренного ст. 172 УК РФ.
+
+Подробнее - МВД России`,
+        link: "https://www.kommersant.ru/doc/8736666"
+    },
+    {
+        image: "den_raschku.png",
+        title: "Поздравление директора Росфинмониторинга Юрия Чиханчина с Днём России",
+        text: `Уважаемые коллеги, дорогие друзья, поздравляю вас с Днем России!
+
+Это особенная дата для каждого жителя нашей страны, которая стала символом государственности и суверенитета Российской Федерации, единства населяющих ее народов.
+
+Патриотизм, взаимоуважение и гордость за свою страну объединяют россиян. Мы гордимся многовековой историей нашего государства, богатым культурным наследием и уникальными самобытными традициями, которые передаются из поколения в поколение.
+
+На защите финансовых рубежей и национальной безопасности стоят сотрудники профильных ведомств, представители подразделения финансовой разведки России. В этот день хочу поблагодарить коллег за вклад в наше общее дело – защиту страны и ее граждан от преступных посягательств.
+
+Желаю крепкого здоровья, семейного счастья и благополучия, новых профессиональных успехов и достижений на благо Родины! С праздником!`,
+        link: "https://www.fedsfm.ru/releases/9988"
+    },
+    ];
+
+/* Техническая часть: не трогай это, она автоматически обновляет сайт */
+const buildNews = (data) => {
+    const newsGrid = document.getElementById('dynamic-news-wrapper');
+    if (!newsGrid) return;
+    newsGrid.innerHTML = ''; 
+
+    data.forEach(item => {
+        const newsCard = `
+            <div class="news-card-item">
+                <div class="news-img-box">
+                    <img src="${item.image}" alt="${item.title}">
+                </div>
+                <div class="news-content-box">
+                    <h4>${item.title}</h4>
+                    <p style="font-size: 12px; color: #555; margin: 5px 0 10px 0; line-height: 1.4;">
+                        ${item.text.length > 140 ? item.text.substring(0, 140) + '...' : item.text}
+                    </p>
+                    <a href="${item.link}" style="font-size: 12px; color: #005695; font-weight: bold; text-decoration: none;">Подробнее →</a>
+                </div>
+            </div>
+        `;
+        newsGrid.innerHTML += newsCard;
+    });
+};
+
+document.addEventListener('DOMContentLoaded', () => buildNews(current_news));
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Досье сотрудника — Росфинмониторинг</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f4f7; color: #333; }
+        
+        /* Хедер досье */
+        .navbar-custom { background-color: #0a1f33; height: 85px; display: flex; align-items: center; padding: 0 30px; color: #fff; border-bottom: 4px solid #c5a059; justify-content: space-between; }
+        .logo-area { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .emblem-img { height: 60px; width: auto; }
+        .logo-text h1 { margin: 0; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
+        .logo-text p { margin: 0; font-size: 10px; color: #a0b2c6; text-transform: uppercase; }
+
+        /* Контейнер */
+        .profile-container { max-width: 1000px; margin: 40px auto; background: white; border: 1px solid #dce3e8; border-radius: 4px; padding: 40px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        
+        /* Главный блок: Фото + Имя */
+        .profile-header { display: grid; grid-template-columns: 280px 1fr; gap: 40px; border-bottom: 2px solid #edf1f4; padding-bottom: 35px; margin-bottom: 30px; }
+        
+        /* Контейнер для главного фото */
+        .photo-box { width: 280px; height: 350px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .photo-box img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        
+        .info-box { display: flex; flex-direction: column; justify-content: center; }
+        .status-badge { background: #e2f6ea; color: #28a745; padding: 6px 14px; font-size: 12px; font-weight: bold; border-radius: 20px; width: fit-content; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #c3e6cb; }
+        .profile-name { font-size: 32px; color: #0a1f33; font-weight: bold; margin: 0 0 10px 0; }
+        .profile-rank { font-size: 16px; color: #005695; font-weight: 600; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        /* Личные данные */
+        .meta-grid { display: grid; grid-template-columns: 180px 1fr; gap: 14px; font-size: 14px; border-top: 1px solid #f0f4f7; padding-top: 20px; }
+        .meta-label { font-weight: bold; color: #708090; }
+        .meta-value { color: #222; }
+
+        /* Разделы */
+        .section-title { font-size: 18px; color: #005695; font-weight: bold; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid #005695; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .bio-text { font-size: 15px; line-height: 1.6; color: #444; text-align: justify; margin: 0 0 15px 0; }
+
+        /* Списки блоков */
+        .features-list { padding-left: 20px; margin: 15px 0; font-size: 15px; line-height: 1.6; color: #444; }
+        .features-list li { margin-bottom: 12px; }
+        .features-list strong { color: #005695; }
+
+        /* Двухколоночный блок: Интервью + Пресс-фото */
+        .media-block { display: grid; grid-template-columns: 1fr 320px; gap: 30px; margin-top: 15px; align-items: start; }
+        
+        .quote-block { background: #f4f7fa; border-left: 5px solid #c5a059; padding: 25px; border-radius: 0 4px 4px 0; font-style: italic; font-size: 15px; line-height: 1.6; color: #4b5768; margin: 0; }
+        .quote-source { font-style: normal; font-weight: bold; color: #005695; margin-top: 15px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .press-photo-box { width: 100%; height: 210px; background: #e5eef5; border: 1px solid #dce3e8; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .press-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Награды */
+        .awards-list { list-style-type: none; padding: 0; margin: 0; font-size: 15px; line-height: 1.8; color: #444; }
+        .awards-list li { padding-left: 25px; position: relative; margin-bottom: 8px; }
+        .awards-list li::before { content: '🏆'; position: absolute; left: 0; top: -1px; font-size: 14px; }
+
+        .btn-back { display: inline-block; background: #0a1f33; color: white; padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 40px; transition: background 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-back:hover { background: #004070; }
+
+        /* Подвал */
+        .footer-profile { background-color: #0a1f33; color: #fff; padding: 30px 0; margin-top: 60px; font-size: 12px; border-top: 4px solid #c5a059; }
+        .footer-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-sizing: border-box; }
+        .footer-emblem { height: 60px; width: auto; object-fit: contain; flex-shrink: 0; }
+        .footer-disclaimer { color: #cedbe7; line-height: 1.6; text-align: justify; font-style: italic; max-width: 600px; }
+        .footer-copyright { color: #8fa2b5; font-size: 11px; font-weight: bold; text-align: right; white-space: nowrap; flex-shrink: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- НАВБАР -->
+    <nav class="navbar-custom">
+        <div class="logo-area" onclick="window.location.href='index.html'">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div style="font-size: 12px; font-weight: bold; color: #a0b2c6;">ДОСТУП: СЛУЖЕБНЫЙ</div>
+    </nav>
+
+    <!-- КАРТОЧКА ПРОФИЛЯ -->
+    <div class="profile-container">
+        
+        <div class="profile-header">
+            <div class="photo-box">
+                <img src="kas.png" alt="Рябов Р. А. — Рабочая обстановка">
+            </div>
+            
+            <div class="info-box">
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h2 class="profile-name">Рябов Роман Александрович</h2>
+                <p class="profile-rank">Главный специалист-эксперт / Аналитик ПОД/ФТ</p>
+                
+                <div class="meta-grid">
+                    <div class="meta-label">ID Удостоверения:</div>
+                    <div class="meta-value" style="font-weight: bold; color: #d9534f;">ФС-127025</div>
+                    
+                    <div class="meta-label">Подразделение:</div>
+                    <div class="meta-value">Управление финансовых расследований Росфинмониторинга</div>
+                    
+                    <div class="meta-label">Специализация:</div>
+                    <div class="meta-value">Финансовая аналитика, мониторинг трансграничных операций и оценка рисков</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- НА СТРАЖЕ БЕЗОПАСНОСТИ -->
+        <div class="section-title">На страже финансовой безопасности</div>
+        <p class="bio-text">
+            Профессиональная деятельность Романа Александровича Рябова неразрывно связана с аналитическим сопровождением масштабных мероприятий по противодействию легализации преступных доходов. В рамках работы в центральном аппарате ведомства он зарекомендовал себя как высококлассный специалист, способный эффективно распутывать самые сложные и скрытые цепочки финансовых транзакций.
+        </p>
+
+        <!-- ОБРАЗОВАНИЕ -->
+        <div class="section-title">Образование и становление</div>
+        <p class="bio-text">
+            Роман Александрович получил профильное высшее экономическое образование по направлению <strong>«Финансы и кредит»</strong> со специальной подготовкой в сфере экономической безопасности. В рамках последующего профессионального развития он успешно завершил циклы специализированного обучения, сфокусированные на международных стандартах финансовой разведки, банковском комплаенсе и передовых методах детекции теневых финансовых flows.
+        </p>
+
+        <!-- СЛУЖЕБНАЯ ЭКСПЕРТИЗА -->
+        <div class="section-title">Ключевые направления экспертизы</div>
+        <p class="bio-text">
+            Ежедневные обязанности Романа Александровича охватывают стратегически важные направления работы Управления финансовых расследований, требующие ювелирной точности и системного мышления:
+        </p>
+        <ul class="features-list">
+            <li><strong>Анализ подозрительных операций:</strong> Глубокая оценка крупных финансовых потоков и оперативное выявление признаков легализации доходовов, полученных незаконным путем.</li>
+            <li><strong>Противодействие финансированию терроризма:</strong> Сбор, верификация и подготовка важнейших аналитических материалов для перекрытия и блокирования каналов подпитки экстремистских структур.</li>
+            <li><strong>Межведомственный трек:</strong> Координация и техническое сопровождение безопасного информационного обмена с государственными органами и ведущими кредитными организациями.</li>
+            <li><strong>Моделирование рисков:</strong> Участие в проектировании современных аналитических моделей оценки рисков и совершенствовании механизмов национального финансового мониторинга.</li>
+        </ul>
+
+        <!-- ИТОГ / ЦИТАТА + ВТОРОЕ ФОТО (KASP.PNG) -->
+        <div class="section-title">Профессиональный итог и международный трек</div>
+        <div class="media-block">
+            <div class="quote-block">
+                «Современная финансовая безопасность основывается не только на контроле денежных потоков, но и на способности своевременно выявлять скрытые взаимосвязи между финансовыми операциями. Эффективный финансовый мониторинг является важнейшим инструментом защиты экономических интересов государства.»
+                <div class="quote-source">Из доклада на международном экспертном мероприятии, 2026 г.</div>
+            </div>
+            <!-- Вторая фотка kasp.png идеально встала на место пресс-фото -->
+            <div class="press-photo-box">
+                <img src="kasp.png" alt="Рябов Р. А. — Выступление с докладом">
+            </div>
+        </div>
+
+        <!-- НАГРАДЫ -->
+        <div class="section-title">Государственные и ведомственные награды</div>
+        <ul class="awards-list">
+            <li>Благодарность руководства Росфинмониторинга за высокий профессионализм и развитие аналитических инструментов.</li>
+            <li>Ведомственное поощрение за добросовестное исполнение обязанностей и участие в значимых расследованиях.</li>
+            <li>Почетная грамота за вклад в совершенствование механизмов противодействия легализации преступных доходов.</li>
+        </ul>
+
+        <a href="index.html" class="btn-back">← На главную страницу</a>
+
+    </div>
+
+    <!-- УНИВЕРСАЛЬНЫЙ ПОДВАЛ С ДИСКЛЕЙМЕРОМ И ГЕРБОМ -->
+    <footer class="footer-profile">
+        <div class="footer-container">
+            <img src="emblem.png" class="footer-emblem" alt="Герб Росфинмониторинга">
+            <div class="footer-disclaimer">
+                «Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга».
+            </div>
+            <div class="footer-copyright">
+                © 2001-2026 Федеральная служба<br>по финансовому мониторингу.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Леонова Виктория Сергеевна — Служебная база верификации</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f7f9; 
+            color: #333; 
+        }
+
+        /* ТОЧНАЯ СЛУЖЕБНАЯ ШАПКА (КАК НА ТВОЕМ СКРИНШОТЕ) */
+        .navbar-custom { 
+            background-color: #0a1f33; 
+            height: 90px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 30px; 
+            color: #fff; 
+            border-bottom: 3px solid #c5a059; 
+            justify-content: space-between; 
+        }
+        .logo-area { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .emblem-img { 
+            height: 55px; 
+            width: auto; 
+        }
+        .logo-text h1 { 
+            margin: 0; 
+            font-size: 20px; 
+            font-weight: bold; 
+            letter-spacing: 0.5px; 
+            color: #ffffff;
+        }
+        .logo-text p { 
+            margin: 3px 0 0 0; 
+            font-size: 10px; 
+            color: #8fa2b5; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .access-status {
+            font-size: 12px; 
+            font-weight: bold; 
+            color: #8fa2b5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ГЛАВНЫЙ КОНТЕЙНЕР ЛИЧНОГО ДЕЛА */
+        .profile-card {
+            max-width: 750px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        /* КАРТОЧКА ИНФОРМАЦИИ (ВЕРХНИЙ БЛОК) */
+        .header-block {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        /* ГЛАВНОЕ ФОТО ВЕРХУ */
+        .main-photo {
+            width: 240px;
+            height: 300px;
+            border: 1px solid #cbd5e1;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ЗЕЛЕНЫЙ СТАТУС */
+        .status-badge {
+            display: inline-block;
+            background-color: #e6f4ea;
+            color: #137333;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            border: 1px solid #ceead6;
+        }
+
+        /* ФИО И ДОЛЖНОСТЬ */
+        .employee-name {
+            font-size: 28px;
+            color: #0c2340;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .employee-title {
+            font-size: 13px;
+            color: #0066cc;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        /* ТАБЛИЦА С ХАРАКТЕРИСТИКАМИ */
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .meta-table td {
+            padding: 8px 0;
+            font-size: 13px;
+            vertical-align: top;
+        }
+        .meta-table td.label {
+            color: #64748b;
+            width: 140px;
+        }
+        .meta-table td.value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        .meta-table td.value.id-highlight {
+            color: #dd2c00;
+            font-weight: bold;
+        }
+
+        /* ЗАГОЛОВКИ РАЗДЕЛОВ */
+        .section-headline {
+            font-size: 15px;
+            color: #0056b3;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+
+        .section-text {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            text-align: justify;
+            margin: 0 0 20px 0;
+        }
+
+        .bullet-list {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+        .bullet-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        .bullet-list strong {
+            color: #0056b3;
+        }
+
+        /* БЛОК ПМЭФ */
+        .media-container {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            margin-bottom: 25px;
+            align-items: start;
+        }
+        .quote-text {
+            font-style: italic;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #475569;
+            margin: 0;
+        }
+        .quote-source {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #0056b3;
+            font-weight: bold;
+            margin-top: 12px;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+        .forum-photo {
+            width: 280px;
+            height: auto;
+            border: 1px solid #cbd5e1;
+            display: block;
+        }
+
+        .awards-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 40px 0;
+        }
+        .awards-list li {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .btn-back-main {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #0c2340;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .btn-back-main:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ВЕРХНЯЯ ВЕДОМСТВЕННАЯ ШАПКА -->
+    <nav class="navbar-custom">
+        <div class="logo-area">
+            <img src="emblem.png" class="emblem-img" alt="Герб">
+            <div class="logo-text">
+                <h1>РОСФИНМОНИТОРИНГ</h1>
+                <p>Служебная база верификации сотрудников</p>
+            </div>
+        </div>
+        <div class="access-status">Доступ: Служебный</div>
+    </nav>
+
+    <!-- СТРАНИЦА ИЗ БАЗЫ ДАННЫХ -->
+    <div class="profile-card">
+        
+        <!-- ВЕРХНИЙ БЛОК: ОФИЦИАЛЬНЫЙ ПОРТРЕТ И МЕТА -->
+        <div class="header-block">
+            <img src="lex.png" class="main-photo" alt="Леонова В. С.">
+            
+            <div>
+                <div class="status-badge">✓ Действующий сотрудник ведомства</div>
+                <h1 class="employee-name">Леонова Виктория Сергеевна</h1>
+                <div class="employee-title">Ведущий специалист-эксперт ФЭУ / Международник</div>
+                
+                <table class="meta-table">
+                    <tr>
+                        <td class="label">ID Удостоверения:</td>
+                        <td class="value id-highlight">ФС-270038</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Подразделение:</td>
+                        <td class="value">Финансово-экономическое управление Росфинмониторинга</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Специализация:</td>
+                        <td class="value">Финансовое сопровождение программ международного сотрудничества и аудит рисков</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- РАЗДЕЛЫ ХАРАКТЕРИСТИКИ -->
+        <div class="section-headline">На страже финансовой безопасности</div>
+        <p class="section-text">
+            Профессиональный путь Виктории Сергеевны Леоновой неразрывно связан с обеспечением стабильности финансово-экономического блока ведомства. В рамках работы в Финансово-экономическом управлении Центрального аппарата Росфинмониторинга она отвечает за аналитическое сопровождение и аудит бюджетирования ключевых программ. Благодаря высокому уровню квалификации и системному подходу к контролю финансовых потоков, Виктория Сергеевна выступает надежным щитом на пути нецелевого распределения государственных активов и обеспечивает легитимность международных соглашений.
+        </p>
+
+        <div class="section-headline">Образование и становление</div>
+        <p class="section-text">
+            Виктория Сергеевна получила профильное высшее экономическое образование, специализируясь на государственном аудите, международном финансовом контроле и анализе рисков. Обучение и глубокое освоение нормативно-правовой базы заложили мощный фундамент экспертных знаний в области финансовой прозрачности целевых фондов, анализа транзакций и современных методов выявления скрытых экономических угроз.
+        </p>
+
+        <div class="section-headline">Экспертная работа и международный статус</div>
+        <p class="section-text">
+            Ключевой особенностью деятельности Виктории Леоновой является координация и финансовое обеспечение программ в рамках международного взаимодействия. Она принимает активное участие в аналитическом обеспечении работы ведомства с крупнейшими глобальными институтами:
+        </p>
+        <ul class="bullet-list">
+            <li><strong>Взаимодействие с FATF:</strong> Сопровождение и аудит финансово-экономической отчетности по совместным межгосударственным проектам и инициативам.</li>
+            <li><strong>Интеграция с ЕАГ и Группой Эгмонт:</strong> Контроль исполнения обязательств по международным соглашениям в сфере обмена аналитическими данными.</li>
+            <li><strong>Мониторинг трансграничных рисков:</strong> Участие в формировании комплексных стратегий экономической прозрачности совместных фондов.</li>
+        </ul>
+
+        <!-- БЛОК С ФОТО С ПМЭФ -->
+        <div class="section-headline">Профессиональный итог и медиа</div>
+        <div class="media-container">
+            <div class="quote-text">
+                «Эффективное финансово-экономическое планирование внутри ведомства — это фундамент, на котором строится вся оперативная и международная деятельность службы. Контроль каждой бюджетной единицы, задействованной в программах финансовой разведки, гарантирует общую экономическую безопасность и авторитет ведомства на мировой арене.»
+                <span class="quote-source">из официального доклада на панельной сессии ПМЭФ, 2026 г.</span>
+            </div>
+            <img src="lex_pmef.png" class="forum-photo" alt="Леонова В. С. на ПМЭФ">
+        </div>
+
+        <div class="section-headline">Государственные и ведомственные награды</div>
+        <ul class="awards-list">
+            <li>🎖️ Благодарность Руководителя Росфинмониторинга за успешное представление ведомственных интересов и высокий уровень экспертных докладов на международной арене.</li>
+            <li>🎖️ Благодарность Начальника управления за безупречную службу и высокие показатели в организации financial контроля.</li>
+            <li>🎖️ Нагрудный знак отличия «За вклад в обеспечение финансовой безопасности» II степени.</li>
+        </ul>
+
+        <!-- БЛОК КОНФИДЕНЦИАЛЬНОСТИ -->
+        <div style="background-color: #fff9e6; border-left: 4px solid #ffcc00; padding: 15px; margin: 30px 0; border-radius: 0 4px 4px 0;">
+            <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: #665200; font-style: italic;">
+                * Ряд материалов и деталей профессиональной деятельности сотрудников ведомства не подлежит разглашению ввиду соблюдения регламентов строгой конфиденциальности и защиты данных субъектов финансового мониторинга.
+            </p>
+        </div>
+
+        <!-- КНОПКА ВОЗВРАТА -->
+        <div style="margin-bottom: 10px;">
+            <a href="index.html" class="btn-back-main">← На главную страницу</a>
+        </div>
+
+    </div> <!-- Конец .profile-card -->
+
+    <!-- ВЕДОМСТВЕННЫЙ ПОДВАЛ -->
+    <footer style="background-color: #0a1f33; color: #ffffff; padding: 30px 20px; border-top: 4px solid #c5a059; margin-top: 50px;">
+        <div style="max-width: 750px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="emblem.png" alt="Герб" style="height: 45px; width: auto;">
+                <div style="text-align: left;">
+                    <div style="font-size: 13px; font-weight: bold; letter-spacing: 0.5px; color: #ffffff;">РОСФИНМОНИТОРИНГ</div>
+                    <div style="font-size: 9px; color: #8fa2b5; text-transform: uppercase;">Федеральная служба по финансовому мониторингу</div>
+                </div>
+            </div>
+            <div style="text-align: right; font-size: 11px; color: #8fa2b5;">
+                <div>Центральный аппарат Росфинмониторинга</div>
+                <div style="margin-top: 4px;">© 2001-2026 Все права защищены.</div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
